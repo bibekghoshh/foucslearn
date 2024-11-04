@@ -3,7 +3,7 @@ import logo from "../assests/logo.png";
 
 const Header = () => {
   return (
-    <div className="flex justify-between items-center mx-12">
+    <div className="flex justify-between items-center mx-12 sticky top-0">
       <div >
         <img src={logo} className="w-32" alt="Foucs Learn" />
       </div>
