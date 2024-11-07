@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 
 const VideoCardDetails = ({ data }) => {
   const playlistid = data.id.playlistId;
+  
   return (
     <div className="flex gap-4  w-[800px] shadow-sm ">
       <div className="w-[320px]  h-[180px]  flex-none">
@@ -20,7 +21,7 @@ const VideoCardDetails = ({ data }) => {
           <MdVerified />
         </h3>
         <h3 className="text-xs">{data.snippet.description}</h3>
-        <Link to={`/watchcourse/${playlistid}`}>
+        <Link to={`/watchcourse/${playlistid}`}> 
           <div className="font-medium text-slate-600 text-xs cursor-pointer">
             VIEW FULL PLAYLIST
           </div>

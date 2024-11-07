@@ -1,44 +1,38 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Header from "./Header";
 import Footer from "./Footer";
 import VideoCardDetails from "./VideoCard/VideoCardDetails";
 import axios from "axios";
+import { searchAPI, apiKey } from "../data/data";
+import { myContext } from "../Context/Context";
 
 const Body = () => {
   const [userQuery, setUserQusery] = useState("");
   const [playlistData, setPlaylistData] = useState("");
 
-  const URLtoFetchPlaylist =
-    "https://www.googleapis.com/youtube/v3/search?key=";
-  const apiKey = "AIzaSyAe34oWLT1ceMfGZZhV_RD4xH8tA0dCF1M";
-
   const searchYoutubePlaylist = async () => {
-    // console.log("clicked search button");
     try {
       const response = await axios.get(
-        URLtoFetchPlaylist +
-          apiKey +
-          "&q=" +
-          userQuery +
-          "&type=playlist&part=snippet&maxResults=15"
+        `${searchAPI}?key=${apiKey}&q=${userQuery}&type=playlist&part=snippet&maxResults=15`
       );
-      console.log(response.data.items);
       setPlaylistData(response.data.items);
+        console.log(response.data.items);
+      //   console.log(response);
+
     } catch (error) {
       console.error("Error while fetching data", error);
     }
   };
-    // console.log(playlistData);
+  // console.log(playlistData);
 
   const handleInputChange = (event) => {
     setUserQusery(event.target.value);
   };
   return (
-    <>
+    <myContext.Provider value={{}}>
       <Header />
 
       <div className="mt-32">
-        {/* <div>{userQuery}</div> */}
         <div className="flex items-center justify-center sticky top-8">
           <div>
             <input
@@ -72,7 +66,7 @@ const Body = () => {
       </div>
 
       <Footer />
-    </>
+    </myContext.Provider>
   );
 };
 
