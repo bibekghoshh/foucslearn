@@ -1,15 +1,20 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import SideBarVideoCard from "./SideBarVideoCard";
-import { playlistItemsAPI, apiKey, playlistsAPI} from "../../data/data";
+import {
+  playlistItemsAPI,
+  apiKey,
+  playlistsAPI,
+} from "../../data/data";
+import { myContext } from "../../Context/userContext";
 
 const WatchPlaylist = () => {
-  const [playlistItemDetails, setPlaylistItemDeatils] = useState([]);
   const [currentVideoId, setCurrentVideoId] = useState("");
-  const [contentLength, setContentLength]=useState(0);
-
+ 
   const { playlistid } = useParams();
+
+  const {userSelectedPlaylistItems, setUserSelectedPlaylistItems,totalPlaylistDuration,eachVideoLength } = useContext(myContext);
 
   useEffect(() => {
     const fetchdata = async () => {
@@ -18,71 +23,67 @@ const WatchPlaylist = () => {
           `${playlistsAPI}?key=${apiKey}&id=${playlistid}&part=contentDetails`
         );
         const noOfVideos = itemCount.data.items[0].contentDetails.itemCount;
-        console.log(noOfVideos);
-
-        // const contentLength=itemCount.headers['content-length'];
-
-
-        setContentLength(itemCount.headers['content-length']);
-        console.log(contentLength);
+        // console.log(noOfVideos);
 
         const response = await axios(
           `${playlistItemsAPI}?key=${apiKey}&playlistId=${playlistid}&part=snippet,contentDetails&maxResults=${noOfVideos}`
         );
-        setPlaylistItemDeatils(response.data.items);
 
+        setUserSelectedPlaylistItems(response.data.items);
         // console.log(response);
-        if(response.data.items.length>0){
+
+        //By Default setting the video
+        if (response.data.items.length > 0) {
           setCurrentVideoId(response.data.items[0].contentDetails.videoId);
         }
-        
+
         // console.log(response.data.items);
+
+        
       } catch (error) {
         console.error("Error while fetching playlistDetails", error);
       }
     };
 
     fetchdata();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [playlistid]);
 
+  
 
   const handleVideoSelect = (videoId) => {
     setCurrentVideoId(videoId);
   };
-  
 
   return (
     <div className="flex">
       <div className="w-full">
-        <div>
-        <iframe
-          width="100%"
-          height="600"
-          src={`https://www.youtube-nocookie.com/embed/${currentVideoId}?rel=0`}
-          title="YouTube video player"
-          frameBorder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-          allowFullScreen
-        ></iframe>
+        <div className="shadow-md">
+          <iframe
+            width="100%"
+            height="600"
+            src={`https://www.youtube-nocookie.com/embed/${currentVideoId}?rel=0`}
+            title="YouTube video player"
+            frameBorder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowFullScreen
+          ></iframe>
         </div>
-        <div>
-          {contentLength}
-        </div>
-        
+        <div className="mt-6 ml-2 font-medium shadow-lg inline-block px-2 py-2">{totalPlaylistDuration}</div>
       </div>
       <div className="">
         <div className="font-bold text-xl pl-2 py-2 sticky top-0 bg-white border-b-2">
           Course Content
         </div>
 
-        {playlistItemDetails && (
+        {userSelectedPlaylistItems && (
           <div className="overflow-y-scroll h-screen border-l-2">
-            {playlistItemDetails.map((items, index) => (
+            {userSelectedPlaylistItems.map((items, index) => (
               <div
                 key={index}
                 onClick={() => handleVideoSelect(items.contentDetails.videoId)}
               >
-                <SideBarVideoCard items={items} />
+                <SideBarVideoCard items={items} videolength={eachVideoLength[index]}/>
               </div>
             ))}
           </div>

@@ -4,7 +4,7 @@ import Footer from "./Footer";
 import VideoCardDetails from "./VideoCard/VideoCardDetails";
 import axios from "axios";
 import { searchAPI, apiKey } from "../data/data";
-import { myContext } from "../Context/Context";
+import { myContext } from "../Context/userContext";
 
 const Body = () => {
   const [userQuery, setUserQusery] = useState("");
@@ -16,7 +16,7 @@ const Body = () => {
         `${searchAPI}?key=${apiKey}&q=${userQuery}&type=playlist&part=snippet&maxResults=15`
       );
       setPlaylistData(response.data.items);
-        console.log(response.data.items);
+        // console.log(response.data.items);
       //   console.log(response);
 
     } catch (error) {
