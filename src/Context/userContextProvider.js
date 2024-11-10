@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { myContext } from "./userContext";
 import { VideoApi, apiKey } from "../data/data";
 import axios from "axios";
@@ -14,6 +14,13 @@ const UserContextProvider = ({ children }) => {
   let videoLengthInSecond=[];
   //fetch any data or calculation
   //Extract all video Id
+
+  useEffect(()=>{
+    if(userSelectedPlaylistItems.length>0){
+        calculateVideoLength();
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  },[userSelectedPlaylistItems]);
 
   const calculateVideoLength = async () => {
     const videoIds = userSelectedPlaylistItems
@@ -48,13 +55,14 @@ const UserContextProvider = ({ children }) => {
     const minutes = Math.floor((totalDuration % 3600) / 60);
     const seconds = totalDuration % 60;
 
-    // console.log(
-    //   `Total Playlist Duration: ${hours} hours, ${minutes} minutes, ${seconds} seconds`
-    // );
+    console.log(
+      `Total Playlist Duration: ${hours} hours, ${minutes} minutes, ${seconds} seconds`
+    );
 
-    setTotalPlaylistDuration(`Course Duration: ${hours} hours, ${minutes} minutes, ${seconds} seconds`)
+    setTotalPlaylistDuration(`Duration: ${hours} hours, ${minutes} minutes`)
+
   };
-  calculateVideoLength();
+//   calculateVideoLength();
   
 
   const convertDurationToSeconds = (duration) => {
@@ -74,6 +82,7 @@ const UserContextProvider = ({ children }) => {
         setUserSelectedPlaylistItems,
         totalPlaylistDuration,
         eachVideoLength,
+        calculateVideoLength,
       }}
     >
       {children}

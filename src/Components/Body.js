@@ -4,7 +4,6 @@ import Footer from "./Footer";
 import VideoCardDetails from "./VideoCard/VideoCardDetails";
 import axios from "axios";
 import { searchAPI, apiKey } from "../data/data";
-import { myContext } from "../Context/userContext";
 
 const Body = () => {
   const [userQuery, setUserQusery] = useState("");
@@ -28,13 +27,20 @@ const Body = () => {
   const handleInputChange = (event) => {
     setUserQusery(event.target.value);
   };
+
+  const handleSearchSubmit=(event)=>{
+     event.preventDefault(); // Prevent page reload
+     if(userQuery.trim()){
+        searchYoutubePlaylist();
+     }
+  }
   return (
-    <myContext.Provider value={{}}>
+    <>
       <Header />
 
       <div className="mt-32">
         <div className="flex items-center justify-center sticky top-8">
-          <div>
+          <form onSubmit={handleSearchSubmit} className="flex">
             <input
               type="text"
               name="searchInput"
@@ -43,16 +49,14 @@ const Body = () => {
               className="border-2 px-4 py-2 w-[35vw] outline-none rounded-l-full"
               placeholder="Paste your Link here....."
             />
-          </div>
-          <div>
             <button
-              onClick={searchYoutubePlaylist}
+            //   onClick={searchYoutubePlaylist}
               className="rounded-lg bg-blue-700 px-8 py-[9px] text-white font-medium rounded-r-full"
-              type="button"
+              type="submit"
             >
               Search
             </button>
-          </div>
+          </form>
         </div>
         {playlistData && (
           <div className="mt-20 flex justify-center flex-col items-center gap-4">
@@ -66,7 +70,7 @@ const Body = () => {
       </div>
 
       <Footer />
-    </myContext.Provider>
+    </>
   );
 };
 

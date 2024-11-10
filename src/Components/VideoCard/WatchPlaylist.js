@@ -8,9 +8,13 @@ import {
   playlistsAPI,
 } from "../../data/data";
 import { myContext } from "../../Context/userContext";
+import { studyMotivationQuotes } from "../../data/studyMotivationQuotes";
+
 
 const WatchPlaylist = () => {
-  const [currentVideoId, setCurrentVideoId] = useState("");
+  const [currentVideoId, setCurrentVideoId] = useState(undefined);
+  const [motivationQuotes,setMotivationQuotes]=useState("Small steps every day.");
+  
  
   const { playlistid } = useParams();
 
@@ -32,27 +36,27 @@ const WatchPlaylist = () => {
         setUserSelectedPlaylistItems(response.data.items);
         // console.log(response);
 
-        //By Default setting the video
+        // //By Default setting the video
         if (response.data.items.length > 0) {
           setCurrentVideoId(response.data.items[0].contentDetails.videoId);
         }
 
         // console.log(response.data.items);
-
-        
       } catch (error) {
         console.error("Error while fetching playlistDetails", error);
       }
     };
 
     fetchdata();
+
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [playlistid]);
 
-  
 
   const handleVideoSelect = (videoId) => {
     setCurrentVideoId(videoId);
+    const randomNumber = Math.floor(Math.random() * 100);
+    setMotivationQuotes(studyMotivationQuotes[randomNumber]);
   };
 
   return (
@@ -69,11 +73,21 @@ const WatchPlaylist = () => {
             allowFullScreen
           ></iframe>
         </div>
+        <div>
         <div className="mt-6 ml-2 font-medium shadow-lg inline-block px-2 py-2">{totalPlaylistDuration}</div>
+        <div className="justify-center flex py-4 border-2 font-mono">{motivationQuotes}</div>
+        </div>
+
       </div>
       <div className="">
-        <div className="font-bold text-xl pl-2 py-2 sticky top-0 bg-white border-b-2">
+        <div className="font-bold text-base pl-2 py-2 sticky top-0 bg-white border-b-2">
+          <div>
           Course Content
+          </div>
+          <div>
+      {totalPlaylistDuration}
+          </div>
+          
         </div>
 
         {userSelectedPlaylistItems && (

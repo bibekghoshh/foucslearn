@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 const VideoCardDetails = ({ data }) => {
   const playlistid = data.id.playlistId;
-  
+
   return (
     <div className="flex gap-4  w-[800px] shadow-sm ">
       <div className="w-[320px]  h-[180px]  flex-none">
