@@ -2,23 +2,25 @@ import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import SideBarVideoCard from "./SideBarVideoCard";
-import {
-  playlistItemsAPI,
-  apiKey,
-  playlistsAPI,
-} from "../../data/data";
+import { playlistItemsAPI, apiKey, playlistsAPI } from "../../data/data";
 import { myContext } from "../../Context/userContext";
 import { studyMotivationQuotes } from "../../data/studyMotivationQuotes";
 
-
 const WatchPlaylist = () => {
   const [currentVideoId, setCurrentVideoId] = useState(undefined);
-  const [motivationQuotes,setMotivationQuotes]=useState("Small steps every day.");
-  
- 
+  const [motivationQuotes, setMotivationQuotes] = useState(
+    "Small steps every day."
+  );
+  const [watchedVideos,setWatchedVideos]=useState([]);
+
   const { playlistid } = useParams();
 
-  const {userSelectedPlaylistItems, setUserSelectedPlaylistItems,totalPlaylistDuration,eachVideoLength } = useContext(myContext);
+  const {
+    userSelectedPlaylistItems,
+    setUserSelectedPlaylistItems,
+    totalPlaylistDuration,
+    eachVideoLength,
+  } = useContext(myContext);
 
   useEffect(() => {
     const fetchdata = async () => {
@@ -49,15 +51,19 @@ const WatchPlaylist = () => {
 
     fetchdata();
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [playlistid]);
 
-
   const handleVideoSelect = (videoId) => {
-    setCurrentVideoId(videoId);
-    const randomNumber = Math.floor(Math.random() * 100);
-    setMotivationQuotes(studyMotivationQuotes[randomNumber]);
+    if (currentVideoId !== videoId) {
+      setCurrentVideoId(videoId);
+      
+      const randomNumber = Math.floor(Math.random() * 100);
+      setMotivationQuotes(studyMotivationQuotes[randomNumber]);
+    }
   };
+
+  
 
   return (
     <div className="flex">
@@ -73,21 +79,15 @@ const WatchPlaylist = () => {
             allowFullScreen
           ></iframe>
         </div>
-        <div>
-        <div className="mt-6 ml-2 font-medium shadow-lg inline-block px-2 py-2">{totalPlaylistDuration}</div>
-        <div className="justify-center flex py-4 border-2 font-mono">{motivationQuotes}</div>
+        <div className="flex justify-center">
+          {/* <div className="mt-6 ml-2 font-medium shadow-lg inline-block px-2 py-2">{totalPlaylistDuration}</div> */}
+          <div className="inline-block py-4 mx-10 font-mono mt-10 bg-slate-50 text-center">{`‘ ${motivationQuotes} ’`}</div>
         </div>
-
       </div>
       <div className="">
-        <div className="font-bold text-base pl-2 py-2 sticky top-0 bg-white border-b-2">
-          <div>
-          Course Content
-          </div>
-          <div>
-      {totalPlaylistDuration}
-          </div>
-          
+        <div className=" text-base pl-2 py-2 sticky top-0 bg-white border-b-2 ">
+          <div className="font-bold">Course Content</div>
+          <div className="text-xs">{totalPlaylistDuration}</div>
         </div>
 
         {userSelectedPlaylistItems && (
@@ -97,7 +97,12 @@ const WatchPlaylist = () => {
                 key={index}
                 onClick={() => handleVideoSelect(items.contentDetails.videoId)}
               >
-                <SideBarVideoCard items={items} videolength={eachVideoLength[index]}/>
+                <SideBarVideoCard
+                  items={items}
+                  videolength={eachVideoLength[index]}
+                  // isWatched={!!watchedVideos[items.contentDetails.videoId]}
+                  // toggleWatchStatus={toggleWatchStatus}
+                />
               </div>
             ))}
           </div>
