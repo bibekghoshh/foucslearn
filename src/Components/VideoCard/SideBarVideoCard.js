@@ -1,12 +1,12 @@
 import React from "react";
-import { MdCheckBoxOutlineBlank, MdOutlineOndemandVideo } from "react-icons/md";
+import { MdCheckBox, MdCheckBoxOutlineBlank, MdOutlineOndemandVideo } from "react-icons/md";
 
-const SideBarVideoCard = ({ items, videolength }) => {
+const SideBarVideoCard = ({ items, videolength,currentVideoId,isSelected,handleSelectToggle }) => {
   return (
-    <div className="pl-4 w-[400px] border-b-[0.5px] shadow-sm py-2 px-2 cursor-pointer hover:bg-slate-300">
-      <div className="flex w-[400px] gap-3">
-        <div className="mt-[2px] text-[20px]">
-          <MdCheckBoxOutlineBlank />
+    <div className={`pl-4 w-[400px] border-b-[0.1px] shadow-sm py-2 px-2 cursor-pointer hover:bg-slate-300  ${currentVideoId===items.contentDetails.videoId?"bg-slate-300":"bg-white"}`}>
+      <div className="flex gap-3">
+        <div className="mt-[2px] text-[20px]" onClick={()=>handleSelectToggle(items.contentDetails.videoId)}>
+        {isSelected?<MdCheckBox />:<MdCheckBoxOutlineBlank />}
         </div>
         <div>
           <div className="flex  text-sm">
