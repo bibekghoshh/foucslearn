@@ -42,6 +42,10 @@ const Body = () => {
     if (userQuery.trim()) {
       searchYoutubePlaylist();
     }
+    window.scrollTo({
+        top: 230, // Change this value to set a different position
+        behavior: 'smooth', // Adds smooth scrolling animation
+      });
     // clearInterval(intervalId); // Stops the interval
   };
 
