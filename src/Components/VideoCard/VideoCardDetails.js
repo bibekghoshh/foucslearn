@@ -8,11 +8,13 @@ const VideoCardDetails = ({ data }) => {
   return (
     <div className="flex gap-4  w-[800px] shadow-sm ">
       <div className="w-[320px]  h-[180px]  flex-none">
-        <img
+      <Link to={`/watchcourse/${playlistid}`}> 
+      <img
           className="w-full h-full object-cover rounded-xl"
           src={data.snippet.thumbnails.medium.url}
           alt=""
         />
+        </Link>
       </div>
       <div className="flex flex-col gap-2 mt-1">
         <h2 className="font-medium text-lg">{data.snippet.title}</h2>

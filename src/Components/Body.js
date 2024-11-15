@@ -4,12 +4,13 @@ import Footer from "./Footer";
 import VideoCardDetails from "./VideoCard/VideoCardDetails";
 import axios from "axios";
 import { searchAPI, apiKey } from "../data/data";
+import { IoSearchOutline } from "react-icons/io5";
 // import { studyMotivationQuotes } from "../data/studyMotivationQuotes";
 
 const Body = () => {
   const [userQuery, setUserQusery] = useState("");
   const [playlistData, setPlaylistData] = useState("");
-//   const [motivationQuotes, setMotivationQuotes] = useState("Education is the most powerful weapon which you can use to change the world");
+  //   const [motivationQuotes, setMotivationQuotes] = useState("Education is the most powerful weapon which you can use to change the world");
 
   const featuresCardCss =
     "bg-green-400 text-white px-4 py-4 rounded font-medium shadow-md font-mono  bg-gradient-to-r from-blue-400 to-purple-500";
@@ -32,32 +33,23 @@ const Body = () => {
     setUserQusery(event.target.value);
   };
 
-//   const intervalId = setInterval(() => {
-//     const randomNumber = Math.floor(Math.random() * 100);
-//     setMotivationQuotes(studyMotivationQuotes[randomNumber]);
-//   }, 10000);
-
   const handleSearchSubmit = (event) => {
     event.preventDefault(); // Prevent page reload
     if (userQuery.trim()) {
       searchYoutubePlaylist();
     }
     window.scrollTo({
-        top: 230, // Change this value to set a different position
-        behavior: 'smooth', // Adds smooth scrolling animation
-      });
-    // clearInterval(intervalId); // Stops the interval
+      top: 230, // Change this value to set a different position
+      behavior: "smooth", // Adds smooth scrolling animation
+    });
   };
-
-  
-
 
   return (
     <>
       <Header />
 
-      <div className="mt-10">
-        <div className="text-center mb-12">
+      <div className="pt-10 ">
+        <div className="text-center mb-12 ">
           <h1 className="text-4xl font-mono font-semibold text-blue-400 bg-gradient-to-r from-teal-500 to-blue-600 bg-clip-text text-transparent">
             FocusLearn – Your Ultimate Distraction-Free Learning Hub
           </h1>
@@ -65,22 +57,22 @@ const Body = () => {
             Empowering seamless learning experiences
           </h3>
         </div>
-        <div className="flex items-center justify-center sticky top-8">
+        <div className="flex items-center justify-center sticky top-5">
           <form onSubmit={handleSearchSubmit} className="flex">
             <input
               type="text"
               name="searchInput"
               id="searchBox"
               onChange={handleInputChange}
-              className="border-2 px-4 py-2 w-[35vw] outline-none rounded-l-full"
+              className="border-2 px-4 py-2 w-[35vw] outline-none rounded-l-full font-mono"
               placeholder="Search Your playlist here"
             />
             <button
               //   onClick={searchYoutubePlaylist}
-              className="rounded-lg bg-blue-700 px-8 py-[9px] text-white font-medium rounded-r-full"
+              className="rounded-lg bg-blue-500 px-6 py-[8px] text-white font-medium rounded-r-full"
               type="submit"
             >
-              Search
+              <IoSearchOutline className="text-2xl" />
             </button>
           </form>
         </div>
@@ -95,12 +87,12 @@ const Body = () => {
         )}
 
         <div className="mt-20 text-center flex items-center justify-center">
-            {/* <div className="font-mono ">{`‘ ${motivationQuotes} ’`}</div> */}
+          {/* <div className="font-mono ">{`‘ ${motivationQuotes} ’`}</div> */}
           {/* <p className="text-2xl font-sans">"Focus on what matters, learn with clarity."</p> */}
           {/* <h3 className="w-[60%]">WatchPlaylist is an innovative platform designed to provide users with a focused, distraction-free way to watch YouTube courses and track their learning progress. It includes features like customizable video playlists, the ability to mark videos as watched, and a sleek, user-friendly interface tailored for continuous learning."</h3> */}
         </div>
 
-        <div className="mt-32 mb-16 flex justify-center text-center">
+        <div className="mt-32 pb-16 flex justify-center text-center">
           <div className="grid grid-flow-row grid-cols-2 gap-6">
             <div className={featuresCardCss}>
               Distraction-free <br />
