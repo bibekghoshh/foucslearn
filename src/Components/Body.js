@@ -8,7 +8,7 @@ import { IoSearchOutline } from "react-icons/io5";
 // import { studyMotivationQuotes } from "../data/studyMotivationQuotes";
 
 const Body = () => {
-  const [userQuery, setUserQusery] = useState("");
+  const [userQuery, setUserQuery] = useState("");
   const [playlistData, setPlaylistData] = useState("");
   //   const [motivationQuotes, setMotivationQuotes] = useState("Education is the most powerful weapon which you can use to change the world");
 
@@ -30,7 +30,7 @@ const Body = () => {
   // console.log(playlistData);
 
   const handleInputChange = (event) => {
-    setUserQusery(event.target.value);
+    setUserQuery(event.target.value);
   };
 
   const handleSearchSubmit = (event) => {
@@ -48,7 +48,7 @@ const Body = () => {
     <>
       <Header />
 
-      <div className="pt-10 ">
+      <div className="mt-10 ">
         <div className="text-center mb-12 ">
           <h1 className="text-4xl font-mono font-semibold text-blue-400 bg-gradient-to-r from-teal-500 to-blue-600 bg-clip-text text-transparent">
             FocusLearn – Your Ultimate Distraction-Free Learning Hub
@@ -64,12 +64,11 @@ const Body = () => {
               name="searchInput"
               id="searchBox"
               onChange={handleInputChange}
-              className="border-2 px-4 py-2 w-[35vw] outline-none rounded-l-full font-mono"
+              className="border-2 px-4 py-2 w-[35vw] outline-none rounded-l-full font-mono focus:border-blue-400 transition duration-300"
               placeholder="Search Your playlist here"
             />
             <button
-              //   onClick={searchYoutubePlaylist}
-              className="rounded-lg bg-blue-500 px-6 py-[8px] text-white font-medium rounded-r-full"
+              className="rounded-lg bg-blue-500 px-6 py-[8px] ml-[-2px] text-white font-medium rounded-r-full hover:bg-blue-600 transition duration-300"
               type="submit"
             >
               <IoSearchOutline className="text-2xl" />
