@@ -9,7 +9,7 @@ import { IoSearchOutline } from "react-icons/io5";
 
 const Body = () => {
   const [userQuery, setUserQuery] = useState("");
-  const [playlistData, setPlaylistData] = useState("");
+  const [playlistData, setPlaylistData] = useState(null);
   //   const [motivationQuotes, setMotivationQuotes] = useState("Education is the most powerful weapon which you can use to change the world");
 
   const featuresCardCss =
@@ -23,6 +23,11 @@ const Body = () => {
       setPlaylistData(response.data.items);
       // console.log(response.data.items);
       //   console.log(response);
+
+      window.scrollTo({
+        top: 230, // Change this value to set a different position
+        behavior: "smooth", // Adds smooth scrolling animation
+      });
     } catch (error) {
       console.error("Error while fetching data", error);
     }
@@ -38,17 +43,14 @@ const Body = () => {
     if (userQuery.trim()) {
       searchYoutubePlaylist();
     }
-    window.scrollTo({
-      top: 230, // Change this value to set a different position
-      behavior: "smooth", // Adds smooth scrolling animation
-    });
   };
+
 
   return (
     <>
       <Header />
 
-      <div className="mt-10 ">
+      <div className="mt-10 flex flex-col justify-center items-center">
         <div className="text-center mb-12 ">
           <h1 className="text-4xl font-mono font-semibold text-blue-400 bg-gradient-to-r from-teal-500 to-blue-600 bg-clip-text text-transparent">
             FocusLearn – Your Ultimate Distraction-Free Learning Hub
@@ -57,7 +59,7 @@ const Body = () => {
             Empowering seamless learning experiences
           </h3>
         </div>
-        <div className="flex items-center justify-center sticky top-5">
+        <div className=" sticky top-5">
           <form onSubmit={handleSearchSubmit} className="flex">
             <input
               type="text"
@@ -68,7 +70,7 @@ const Body = () => {
               placeholder="Search Your playlist here"
             />
             <button
-              className="rounded-lg bg-blue-500 px-6 py-[8px] ml-[-2px] text-white font-medium rounded-r-full hover:bg-blue-600 transition duration-300"
+              className="rounded-lg bg-blue-500 px-6 py-[9.5px] ml-[-2px] text-white font-medium rounded-r-full hover:bg-blue-600 transition duration-300"
               type="submit"
             >
               <IoSearchOutline className="text-2xl" />
