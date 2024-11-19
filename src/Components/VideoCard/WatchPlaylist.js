@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import SideBarVideoCard from "./SideBarVideoCard";
-import { playlistItemsAPI, apiKey, playlistsAPI } from "../../data/data";
+import { playlistItemsAPI, playlistsAPI } from "../../data/data";
 import { myContext } from "../../Context/userContext";
 import { studyMotivationQuotes } from "../../data/studyMotivationQuotes";
 
@@ -12,6 +12,8 @@ const WatchPlaylist = () => {
     "Small steps every day."
   );
   const [selectedVideos, setSelectedVideos] = useState([]);
+
+  const apikey=process.env.REACT_APP_APIKEY;
 
   const { playlistid } = useParams();
 
@@ -26,13 +28,13 @@ const WatchPlaylist = () => {
     const fetchdata = async () => {
       try {
         const itemCount = await axios(
-          `${playlistsAPI}?key=${apiKey}&id=${playlistid}&part=contentDetails`
+          `${playlistsAPI}?key=${apikey}&id=${playlistid}&part=contentDetails`
         );
         const noOfVideos = itemCount.data.items[0].contentDetails.itemCount;
         // console.log(noOfVideos);
 
         const response = await axios(
-          `${playlistItemsAPI}?key=${apiKey}&playlistId=${playlistid}&part=snippet,contentDetails&maxResults=${noOfVideos}`
+          `${playlistItemsAPI}?key=${apikey}&playlistId=${playlistid}&part=snippet,contentDetails&maxResults=${noOfVideos}`
         );
 
         setUserSelectedPlaylistItems(response.data.items);
@@ -82,7 +84,7 @@ const WatchPlaylist = () => {
 
   return (
     <div className="flex h-full">
-      <div className="w-full  h-full">
+      <div className="w-full h-full">
         <div className="shadow-md">
           <iframe
             width="100%"
@@ -94,26 +96,26 @@ const WatchPlaylist = () => {
             allowFullScreen
           ></iframe>
         </div>
-        <div className="flex justify-center flex-col items-center">
-          <div className="inline-block py-4 mx-10 font-mono mt-4 bg-slate-50 text-center">{`‘ ${motivationQuotes} ’`}</div>
+        <div className="flex flex-col items-center justify-center">
+          <div className="inline-block py-4 mx-10 mt-4 font-mono text-center bg-slate-50">{`‘ ${motivationQuotes} ’`}</div>
         </div>
       </div>
 
 
       <div className="">
-        <div className=" text-base pl-2 py-2 sticky top-0 bg-white border-b-2     ">
+        <div className="sticky top-0 py-2 pl-2 text-base bg-white border-b-2 ">
           <div className="font-bold">Course Content</div>
-          <div className="text-xs">{totalPlaylistDuration} <p className="text-slate-400 bg-slate-100 inline-block px-1 rounded">({userSelectedPlaylistItems.length} Videos)</p></div>
+          <div className="text-xs">{totalPlaylistDuration} <p className="inline-block px-1 rounded text-slate-400 bg-slate-100">({userSelectedPlaylistItems.length} Videos)</p></div>
 
-          <div className="w-full flex items-center gap-1">
+          <div className="flex items-center w-full gap-1">
             {/* Progress bar */}
             <div className="w-[90%] bg-gray-200 rounded-lg h-2 overflow-hidden">
               <div
-                className="bg-blue-500 h-full transition-all duration-300"
+                className="h-full transition-all duration-300 bg-blue-500"
                 style={{ width: `${progressPercentage}%` }}
               ></div>
             </div>
-            <div className="text-xs mr-1 flex">{`${selectedVideos.length} / ${userSelectedPlaylistItems.length}`}</div>
+            <div className="flex mr-1 text-xs">{`${selectedVideos.length} / ${userSelectedPlaylistItems.length}`}</div>
           </div>
         </div>
 

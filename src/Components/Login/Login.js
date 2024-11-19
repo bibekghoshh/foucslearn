@@ -14,7 +14,7 @@ const Login = () => {
   return (
     <div className={`flex items-center justify-center h-screen gap-6 transition-all duration-1000 bg-blue-50`}>
         <div className={`flex flex-col gap-16 transition-all duration-500 ${userLoginPage?"":"translate-x-96"}`}>
-            <h1 className="text-blue-400 text-4xl font-medium bg-gradient-to-r from-green-600 to-blue-700 bg-clip-text text-transparent">Welcome to FocusLearn</h1>
+            <h1 className="text-4xl font-medium text-transparent text-blue-400 bg-gradient-to-r from-green-600 to-blue-700 bg-clip-text">Welcome to FocusLearn</h1>
             <div className="w-96">Watch YouTube playlist videos without distractions. It offers a clean user interface, featuring a distraction-free viewing experience and the ability to track progress</div>
             <div>Upgrade your Youtube Learning with FocusLearn</div>
         </div>
@@ -30,7 +30,7 @@ const Login = () => {
             required
             value={name}    
             onChange={(e)=>{setName(e.target.value)}}
-            className=" border-2 px-3 py-3 w-72 outline-none focus:border-blue-400 transition duration-500"
+            className="px-3 py-3 transition duration-500 border-2 outline-none w-72 focus:border-blue-400"
             placeholder="Name"
           />}
         <div>
@@ -41,7 +41,7 @@ const Login = () => {
             required
             value={email}
             onChange={(event)=>{setEmail(event.target.value)}}
-            className="border-2  px-3 py-3 w-72 focus:border-blue-400 transition duration-500 outline-none"
+            className="px-3 py-3 transition duration-500 border-2 outline-none w-72 focus:border-blue-400"
             placeholder="Email"
           />
         </div>
@@ -52,20 +52,20 @@ const Login = () => {
             id="password"
             required
             value={password}
-            onClick={(event)=>{setPassword(event.target.value)}}
-            className="border-2  px-3 py-3 w-72 outline-none focus:border-blue-400 transition duration-500"
+            onClick={(event)=>{setPassword(event.target.value)}}        
+            className="px-3 py-3 transition duration-500 border-2 outline-none w-72 focus:border-blue-400"
             placeholder="Password"
           />
         </div>
 
         <button
           type="submit"
-          className="bg-cyan-800 text-white py-2 rounded-md transition duration-500"
+          className="py-2 text-white transition duration-500 rounded-md bg-cyan-800"
         >
           {userLoginPage?"Login":"Sign Up"}
         </button>
 
-        <div className=" flex justify-center transition duration-500">
+        <div className="flex justify-center transition duration-500 ">
           {userLoginPage ? (
             <div className="flex">
               Don't have a account?{" "}
