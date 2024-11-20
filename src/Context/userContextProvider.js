@@ -48,16 +48,16 @@ const UserContextProvider = ({ children }) => {
         return h+m;
     })
     setEachvideoLength(duration);
-    console.log(duration)
+    // console.log(duration)
 }
 
     const hours = Math.floor(totalDuration / 3600);
     const minutes = Math.floor((totalDuration % 3600) / 60);
-    const seconds = totalDuration % 60;
-
-    console.log(
-      `Total Playlist Duration: ${hours} hours, ${minutes} minutes, ${seconds} seconds`
-    );
+    // const seconds = totalDuration % 60;
+    
+    // console.log(
+    //   `Total Playlist Duration: ${hours} hours, ${minutes} minutes, ${seconds} seconds`
+    // );
 
     setTotalPlaylistDuration(`Duration: ${hours} hours, ${minutes} minutes`)
 
