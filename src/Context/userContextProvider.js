@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { myContext } from "./userContext";
-import { VideoApi, apiKey } from "../data/data";
+import { VideoApi} from "../data/data";
 import axios from "axios";
 
 const UserContextProvider = ({ children }) => {
@@ -9,6 +9,8 @@ const UserContextProvider = ({ children }) => {
   );
   const [totalPlaylistDuration,setTotalPlaylistDuration]=useState(0);
   const [eachVideoLength,setEachvideoLength]=useState([]);
+
+  const apikey=process.env.REACT_APP_APIKEY;
 
   let totalDuration = 0;
   let videoLengthInSecond=[];
@@ -29,7 +31,7 @@ const UserContextProvider = ({ children }) => {
     // console.log(videoIds);
 
     const VideoDuration = await axios(
-      `${VideoApi}?key=${apiKey}&id=${videoIds}&part=contentDetails`
+      `${VideoApi}?key=${apikey}&id=${videoIds}&part=contentDetails`
     );
     // console.log(VideoDuration.data.items);
 
